@@ -3,6 +3,7 @@
 import ReactPlayer from "react-player";
 import { useRef, useState } from "react";
 import { AudioDetails } from "./AudioDetails";
+import { PlayerControls } from "./PlayerControls";
 
 type Props = {
   url: string;
@@ -69,6 +70,22 @@ export const AudioPlayer = ({ url, title, author, thumbnail }: Props) => {
 
       <div className="shadow rounded-xl">
         <AudioDetails title={title} author={author} thumbnail={thumbnail} />
+
+        {/* <PlayerControls
+          playerRef={playerRef}
+          playing={playing}
+          volume={volume}
+          muted={muted}
+          progress={progress}
+          duration={duration}
+          loop={loop}
+          // event handler props
+          toggleMute={toggleMute}
+          handlePlay={handlePlay}
+          toggleLoop={toggleLoop}
+          handlePause={handlePause}
+          handleVolumeChange={handleVolumeChange}
+        /> */}
       </div>
     </div>
   );

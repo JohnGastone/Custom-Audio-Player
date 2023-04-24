@@ -1,4 +1,8 @@
-import { useRef, useState, useMemo } from "react"
+import { CiPlay1, CiPause1 } from "react-icons/ci";
+import { VscMute, VscUnmute } from "react-icons/vsc";
+import { ImLoop } from "react-icons/im";
+import { useRef, useState, useMemo, useEffect } from "react"
+import { Duration } from "./Duration";
 
 type Props = {
   playerRef: any;
@@ -57,10 +61,112 @@ export const PlayerControls = ({
     setSeeking(false);
   }
 
+  //Volume
+  const handleChangeInVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleVolumeChange(Number(e.target.value));
+  }
+
+  //Progress
+  useMemo(() => {
+    setPlayed((prevPlayed) => {
+      if (!seeking && prevPlayed !== progress) {
+        return progress;
+      }
+      return prevPlayed;
+    });
+  }, [progress, seeking]);
+
+  useEffect(() => {
+    playPauseButtonRef.current?.focus();
+  }, []);
+
 
   return (
-    <div className="bg-gray-50 rounded-b-xl py-10">
+    <div className="bg-gray-50  rounded-b-xl py-10">
+      <div className="mb-8 flex gap-x-10 px-10">
+        {/* duration: time played  */}
+        <div className="text-xs text-gray-600">
+          {/* <Duration seconds={duration * played} />  */}
+        </div>
 
+        {/* progress bar */}
+        <div className="flex-1 mx-auto">
+          <input
+            type="range"
+            min={0}
+            max={0.999999}
+            step="any"
+            value={played}
+            onMouseDown={handleSeekMouseDown}
+            onChange={handleSeekChange}
+            onMouseUp={handleSeekMouseUp}
+            className="w-full h-4 rounded-lg appearance-none  bg-slate-400 accent-gray-900 focus:outline focus:outline-cyan-500 "
+          />
+        </div>
+        {/* duration: time played  */}
+        <div className="text-xs text-gray-600">
+          <Duration seconds={duration * played} />
+        </div>
+
+        {/* duration: time left */}
+        <div className="text-xs text-gray-600 flex">
+          <Duration seconds={duration * (1 - played)} />
+        </div>
+
+        {/* duration: time left */}
+        <div className="text-xs text-gray-600 flex">
+          -{/* <Duration seconds={duration * (1 - played)} /> */}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 items-center ">
+        {/* loop button */}
+        <div className="flex justify-center">
+          <button
+            className={`focus:outline focus:outline-cyan-500 font-bold hover:bg-gray-200 ${loop && "text-cyan-500"
+              }`}
+            onClick={toggleLoop}
+          >
+            <ImLoop />
+          </button>
+        </div>
+
+        {/* play/pause button */}
+        <div className="flex justify-center">
+          <button
+            ref={playPauseButtonRef}
+            className="focus:outline focus:outline-cyan-500 border border-cyan-500 rounded-md p-4 hover:bg-gray-200"
+            onClick={togglePlayAndPause}
+          >
+            {playing ? <CiPause1 /> : <CiPlay1 />}
+          </button>
+        </div>
+
+
+        {/* volume control */}
+        <div className="flex justify-center items-center gap-1">
+
+          {/* mute button */}
+          <button
+            className="focus:outline focus:outline-cyan-500"
+            onClick={toggleMute}
+          >
+            {muted ? <VscMute /> : <VscUnmute />}
+          </button>
+
+          {/* volume slider */}
+          <input
+            type="range"
+            className="focus:outline focus:outline-cyan-500 w-[50%] h-2 rounded-lg  bg-slate-400 accent-gray-900"
+            min={0}
+            max={1}
+            step={0.1}
+            value={volume}
+            onChange={handleChangeInVolume}
+          />
+        </div>
+      </div>
     </div>
+
   );
 };
