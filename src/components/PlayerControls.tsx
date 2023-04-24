@@ -17,7 +17,7 @@ type Props = {
   toggleMute: () => void;
   toggleLoop: () => void;
   handlePause: () => void;
-  handleVolumeChange: (newVolume: number) => void;
+  //handleVolumeChange: (newVolume: number) => void;
 };
 
 export const PlayerControls = ({
@@ -31,7 +31,7 @@ export const PlayerControls = ({
   handlePlay,
   toggleLoop,
   handlePause,
-  handleVolumeChange,
+  //handleVolumeChange,
   toggleMute,
 }: Props) => {
   const [played, setPlayed] = useState<number>(0);
@@ -63,7 +63,7 @@ export const PlayerControls = ({
 
   //Volume
   const handleChangeInVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleVolumeChange(Number(e.target.value));
+    //handleVolumeChange(Number(e.target.value));
   }
 
   //Progress

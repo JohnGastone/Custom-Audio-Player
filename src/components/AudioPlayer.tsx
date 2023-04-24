@@ -71,7 +71,7 @@ export const AudioPlayer = ({ url, title, author, thumbnail }: Props) => {
       <div className="shadow rounded-xl">
         <AudioDetails title={title} author={author} thumbnail={thumbnail} />
 
-        {/* <PlayerControls
+        <PlayerControls
           playerRef={playerRef}
           playing={playing}
           volume={volume}
@@ -84,8 +84,8 @@ export const AudioPlayer = ({ url, title, author, thumbnail }: Props) => {
           handlePlay={handlePlay}
           toggleLoop={toggleLoop}
           handlePause={handlePause}
-          handleVolumeChange={handleVolumeChange}
-        /> */}
+        //handleVolumeChange={handleVolumeChange}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-// components/Durations.tsx
-
 export const Duration = ({ seconds }: { seconds: number }) => {
   return (
     <time dateTime={`P${Math.round(seconds)}S`}>{formatTime(seconds)}</time>
