@@ -34,6 +34,30 @@ export const PlayerControls = ({
   const [seeking, setSeeking] = useState<boolean>(false);
   const playPauseButtonRef = useRef<HTMLButtonElement>(null)
 
+  //Play and Pause
+  const togglePlayAndPause = () => {
+    if (playing) {
+      handlePause();
+    } else {
+      handlePlay();
+    }
+  };
+
+  //Seeking
+  const handleSeekMouseDown = (e: any) => {
+    setSeeking(true);
+  }
+
+  const handleSeekChange = (e: any) => {
+    setPlayed(parseFloat(e.target.value));
+  }
+
+  const handleSeekMouseUp = (e: any) => {
+    playerRef.current?.seekTo(parseFloat(e.target.value));
+    setSeeking(false);
+  }
+
+
   return (
     <div className="bg-gray-50 rounded-b-xl py-10">
 
